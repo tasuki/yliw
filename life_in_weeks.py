@@ -165,9 +165,9 @@ def render_html(person: dict) -> str:
 
             styles = []
             if place:
-                styles.append(f"border-color: {place['color']};")
+                styles.append(f"border-color: var(--border-{place['color']});")
             if occupation:
-                styles.append(f"background: {occupation['color']};")
+                styles.append(f"background: var(--bg-{occupation['color']});")
 
             title_lines = []
             for event in week_events:
@@ -218,12 +218,65 @@ def render_html(person: dict) -> str:
       --cell-size: 22px;
       --gap: 1px;
       --border: 1px;
+      --base0: #FFF8E6;
+      --base1: #E8E5D1;
+      --base2: #D2D3BE;
+      --base5: #617C6D;
+      --base7: #0D3A3C;
+      --bg-gray: #ECE9D4;
+      --bg-red: #FFE4E3;
+      --bg-orange: #FFE5D2;
+      --bg-yellow: #FEEEC1;
+      --bg-green: #E7F7BB;
+      --bg-cyan: #D4F8ED;
+      --bg-blue: #DBEEFF;
+      --bg-purple: #E7EAFF;
+      --bg-magenta: #FFE1F4;
+      --border-none: #D2D3BE;
+      --border-gray: #617C6D;
+      --border-red: #DE1D3F;
+      --border-orange: #C9690C;
+      --border-yellow: #AB8704;
+      --border-green: #819808;
+      --border-cyan: #04A388;
+      --border-blue: #1E86CD;
+      --border-purple: #6A69DB;
+      --border-magenta: #C13B9F;
+    }}
+    @media (prefers-color-scheme: dark) {{
+      :root {{
+        --base0: #002A31;
+        --base1: #0D3A3C;
+        --base2: #375B53;
+        --base5: #BBC1AB;
+        --base7: #E8E5D1;
+        --bg-gray: #0D3A3C;
+        --bg-red: #542526;
+        --bg-orange: #4D2C15;
+        --bg-yellow: #3F3414;
+        --bg-green: #3A450B;
+        --bg-cyan: #044E40;
+        --bg-blue: #05436C;
+        --bg-purple: #2F3058;
+        --bg-magenta: #4D2641;
+        --border-none: #375B53;
+        --border-gray: #BBC1AB;
+        --border-red: #FC4257;
+        --border-orange: #EC7C0E;
+        --border-yellow: #C7A01E;
+        --border-green: #98B224;
+        --border-cyan: #21BFA0;
+        --border-blue: #249FF3;
+        --border-purple: #8082F7;
+        --border-magenta: #DD56B8;
+      }}
     }}
     body {{
       font-family: system-ui, sans-serif;
       font-size: 16px;
       margin: 24px;
-      color: #222;
+      background-color: var(--base0);
+      color: var(--base5);
       text-align: center;
     }}
     h1 {{
@@ -253,7 +306,7 @@ def render_html(person: dict) -> str:
       min-height: var(--cell-size);
       max-height: var(--cell-size);
       box-sizing: border-box;
-      border: var(--border) solid #ddd;
+      border: var(--border) solid var(--base1);
       text-align: center;
       vertical-align: middle;
       line-height: 1;
@@ -266,7 +319,7 @@ def render_html(person: dict) -> str:
       -webkit-user-select: none;
     }}
     .cell.has-details:focus-visible {{
-      outline: 2px solid #333;
+      outline: 2px solid var(--base7);
       outline-offset: 1px;
     }}
     .details-row td {{
@@ -276,9 +329,9 @@ def render_html(person: dict) -> str:
       max-width: 500px;
       margin: 0 auto;
       padding: 8px 14px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--base2);
       border-radius: 5px;
-      background: #f9f9f9;
+      background: var(--base0);
       text-align: left;
       white-space: pre-line;
     }}
@@ -287,7 +340,7 @@ def render_html(person: dict) -> str:
       background: transparent;
     }}
     .empty {{
-      border-color: #eee;
+      border-color: var(--base1);
       background: transparent;
     }}
   </style>

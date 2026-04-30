@@ -2,16 +2,16 @@
 name = "Gregor Mendel"
 
 places = [
-  { from = 1822-07-20, label = "Heinzendorf (Hynčice)", color = "#2c7" },
-  { from = 1843-10-09, label = "Brno", color = "#e72" },
-  { from = 1851-10-01, label = "Vienna", color = "#95b" },
-  { from = 1853-08-01, label = "Brno", color = "#e72" },
+  { from = 1822-07-20, label = "Heinzendorf (Hynčice)", color = "yellow" },
+  { from = 1843-10-09, label = "Brno", color = "green" },
+  { from = 1851-10-01, label = "Vienna", color = "magenta" },
+  { from = 1853-08-01, label = "Brno", color = "green" },
 ]
 
 occupations = [
-  { from = 1843-10-09, label = "Monk", color = "#fef" },
-  { from = 1847-08-06, label = "Priest & Teacher", color = "#dff" },
-  { from = 1868-03-30, label = "Abbot", color = "#ffc" },
+  { from = 1843-10-09, label = "Monk", color = "cyan" },
+  { from = 1847-08-06, label = "Priest & Teacher", color = "green" },
+  { from = 1868-03-30, label = "Abbot", color = "yellow" },
 ]
 
 events = [
