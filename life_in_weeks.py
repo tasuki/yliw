@@ -178,22 +178,21 @@ def render_html(person: dict) -> str:
                 place_occupation_parts.append(place['label'])
             if occupation:
                 place_occupation_parts.append(occupation['label'])
-            if place_occupation_parts:
-                title_lines.append("; ".join(place_occupation_parts))
 
             details_text = " ".join(title_lines)
-            title_attr = ""
+            if not week_events and place_occupation_parts:
+                details_text = "; ".join(place_occupation_parts)
+
             details_attr = ""
             extra_classes = ""
             if details_text:
                 escaped_details = html.escape(details_text, quote=True)
-                title_attr = f' title="{escaped_details}"'
                 details_attr = f' data-details="{escaped_details}"'
                 extra_classes = " has-details"
 
             content = html.escape("".join(event["emoji"] for event in week_events))
             cells.append(
-                f'<td class="cell{extra_classes}" style="{style_attr(styles)}"{title_attr}{details_attr}>{content}</td>\n'
+                f'<td class="cell{extra_classes}" style="{style_attr(styles)}"{details_attr}>{content}</td>\n'
             )
 
         rows.append(
