@@ -181,32 +181,30 @@ def render_html(person: dict) -> str:
             if place_occupation_parts:
                 title_lines.append("; ".join(place_occupation_parts))
 
-            details_text = "\n".join(title_lines)
+            details_text = " ".join(title_lines)
             title_attr = ""
             details_attr = ""
             extra_classes = ""
-            interactive_attrs = ""
             if details_text:
                 escaped_details = html.escape(details_text, quote=True)
                 title_attr = f' title="{escaped_details}"'
                 details_attr = f' data-details="{escaped_details}"'
                 extra_classes = " has-details"
-                interactive_attrs = ' tabindex="0" role="button" aria-label="Show week details"'
 
             content = html.escape("".join(event["emoji"] for event in week_events))
             cells.append(
-                f'<td class="cell{extra_classes}" style="{style_attr(styles)}"{title_attr}{details_attr}{interactive_attrs}>{content}</td>'
+                f'<td class="cell{extra_classes}" style="{style_attr(styles)}"{title_attr}{details_attr}>{content}</td>\n'
             )
 
         rows.append(
             "<tr>"
-            f'<td class="year">{year}</td>'
+            f'<td class="year">{year}</td>\n'
             + "".join(cells)
-            + "</tr>"
+            + "</tr>\n"
             + (
                 f'<tr class="details-row" hidden><td colspan="{detail_colspan}">' 
                 '<div class="inline-details"></div>'
-                '</td></tr>'
+                '</td></tr>\n'
             )
         )
 
@@ -218,18 +216,19 @@ def render_html(person: dict) -> str:
   <title>{html.escape(name)}</title>
   <style>
     :root {{
-      --cell-size: 14px;
+      --cell-size: 22px;
       --gap: 1px;
       --border: 1px;
     }}
     body {{
       font-family: system-ui, sans-serif;
+      font-size: 16px;
       margin: 24px;
       color: #222;
       text-align: center;
     }}
     h1 {{
-      font-size: 22px;
+      font-size: 24px;
     }}
     .wrapper {{
       width: 100%;
@@ -238,12 +237,11 @@ def render_html(person: dict) -> str:
       justify-content: center;
     }}
     table {{
-      border-collapse: collapse;
+      border-collapse: separate;
       border-spacing: var(--gap);
       margin: 0 auto;
     }}
     .year {{
-      font-size: 10px;
       text-align: right;
       padding-right: 10px;
       white-space: nowrap;
@@ -259,7 +257,6 @@ def render_html(person: dict) -> str:
       border: var(--border) solid #ddd;
       text-align: center;
       vertical-align: middle;
-      font-size: 10px;
       line-height: 1;
       padding: 0;
       overflow: hidden;
@@ -282,7 +279,7 @@ def render_html(person: dict) -> str:
       padding: 8px 14px;
       border: 1px solid #ddd;
       border-radius: 5px;
-      background: #eee;
+      background: #f9f9f9;
       text-align: left;
       white-space: pre-line;
     }}
