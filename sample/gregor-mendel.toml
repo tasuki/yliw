@@ -1,0 +1,27 @@
+[person]
+name = "Gregor Mendel"
+
+places = [
+  { from = 1822-07-20, label = "Heinzendorf (Hynčice)", color = "#2c7" },
+  { from = 1843-10-09, label = "Brno", color = "#e72" },
+  { from = 1851-10-01, label = "Vienna", color = "#95b" },
+  { from = 1853-08-01, label = "Brno", color = "#e72" },
+]
+
+occupations = [
+  { from = 1843-10-09, label = "Monk", color = "#fef" },
+  { from = 1847-08-06, label = "Priest & Teacher", color = "#dff" },
+  { from = 1868-03-30, label = "Abbot", color = "#ffc" },
+]
+
+events = [
+  { date = 1822-07-20, emoji = "👶", text = "Born in Heinzendorf (now Hynčice)" },
+  { date = 1843-10-09, emoji = "⛪", text = "Entered Augustinian monastery in Brno" },
+  { date = 1847-08-06, emoji = "✝️", text = "Ordained as priest" },
+  { date = 1851-10-01, emoji = "🎓", text = "Began studies in Vienna (math & science)" },
+  { date = 1856-05-01, emoji = "🌱", text = "Started pea plant experiments" },
+  { date = 1865-02-08, emoji = "📊", text = "Presented findings on inheritance" },
+  { date = 1866-01-01, emoji = "📄", text = "Published work on plant hybridization" },
+  { date = 1868-03-30, emoji = "🏛️", text = "Became abbot of the monastery" },
+  { date = 1884-01-06, emoji = "⚰️", text = "Died in Brno" },
+]
