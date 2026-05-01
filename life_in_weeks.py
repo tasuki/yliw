@@ -190,9 +190,10 @@ def render_html(person: dict) -> str:
                 details_attr = f' data-details="{escaped_details}"'
                 extra_classes = " has-details"
 
+            date_attrs = f' data-start="{start.isoformat()}" data-end="{end.isoformat()}"'
             content = html.escape("".join(event["emoji"] for event in week_events))
             cells.append(
-                f'<td class="cell{extra_classes}" style="{style_attr(styles)}"{details_attr}>{content}</td>\n'
+                f'<td class="cell{extra_classes}" style="{style_attr(styles)}"{date_attrs}{details_attr}>{content}</td>\n'
             )
 
         rows.append(
@@ -223,6 +224,7 @@ def render_html(person: dict) -> str:
       --base2: #D2D3BE;
       --base5: #617C6D;
       --base7: #0D3A3C;
+      --base: var(--base7);
       --bg-gray: #ECE9D4;
       --bg-red: #FFE4E3;
       --bg-orange: #FFE5D2;
@@ -323,6 +325,9 @@ def render_html(person: dict) -> str:
       outline: 2px solid var(--base7);
       outline-offset: 1px;
     }}
+    .cell.current-week {{
+      border-color: var(--base) !important;
+    }}
     .details-row td {{
       padding: 6px 0 10px;
     }}
@@ -360,6 +365,14 @@ def render_html(person: dict) -> str:
       let openRow = null;
       let openCell = null;
 
+      function markCurrentWeek() {{
+        const today = new Date().toISOString().slice(0, 10);
+        const currentCell = Array.from(document.querySelectorAll('.cell[data-start][data-end]')).find(
+          (cell) => cell.dataset.start <= today && today <= cell.dataset.end
+        );
+        if (currentCell) currentCell.classList.add('current-week');
+      }}
+
       function showDetails(cell) {{
         const text = cell.dataset.details;
         if (!text) return;
@@ -390,6 +403,8 @@ def render_html(person: dict) -> str:
         openRow = detailsRow;
         openCell = cell;
       }}
+
+      markCurrentWeek();
 
       document.addEventListener('click', (event) => {{
         const cell = event.target.closest('.cell.has-details');
