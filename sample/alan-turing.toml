@@ -1,0 +1,43 @@
+[person]
+name = "Alan Turing"
+
+places = [
+  { from = 1912-06-23, label = "London", color = "yellow" },
+  { from = 1926-01-01, label = "Sherborne", color = "blue" },
+  { from = 1931-10-01, label = "Cambridge", color = "green" },
+  { from = 1936-09-01, label = "Princeton", color = "magenta" },
+  { from = 1938-07-01, label = "Cambridge", color = "green" },
+  { from = 1939-09-04, label = "Bletchley Park", color = "cyan" },
+  { from = 1945-10-01, label = "London", color = "yellow" },
+  { from = 1948-10-01, label = "Manchester", color = "red" },
+]
+
+occupations = [
+  { from = 1931-10-01, label = "Mathematics Student", color = "green" },
+  { from = 1936-01-01, label = "Mathematician & Logician", color = "magenta" },
+  { from = 1939-09-04, label = "Codebreaker", color = "cyan" },
+  { from = 1945-10-01, label = "Computer Scientist", color = "yellow" },
+  { from = 1948-10-01, label = "Researcher in Computing & AI", color = "red" },
+]
+
+events = [
+  { date = 1912-06-23, emoji = "👶", text = "Born in Maida Vale, London" },
+  { date = 1926-01-01, emoji = "🏫", text = "Began attending Sherborne School" },
+  { date = 1931-10-01, emoji = "🎓", text = "Started studying mathematics at King's College, Cambridge" },
+  { date = 1935-01-01, emoji = "🏅", text = "Elected a Fellow of King's College for his work in probability" },
+  { date = 1936-11-12, emoji = "📄", text = "Published 'On Computable Numbers,' introducing the concept now known as the Turing machine" },
+  { date = 1936-09-01, emoji = "🇺🇸", text = "Moved to Princeton University for doctoral study" },
+  { date = 1938-06-01, emoji = "🧠", text = "Completed his PhD at Princeton under Alonzo Church" },
+  { date = 1938-07-01, emoji = "↩️", text = "Returned to Cambridge after completing his doctorate" },
+  { date = 1939-09-04, emoji = "🔐", text = "Joined the Government Code and Cypher School at Bletchley Park" },
+  { date = 1940-03-01, emoji = "⚙️", text = "Played a leading role in developing bombe methods for breaking Enigma messages" },
+  { date = 1942-11-01, emoji = "🤝", text = "Visited the United States to assist Allied cryptographic cooperation" },
+  { date = 1945-06-01, emoji = "🎖️", text = "Awarded the Order of the British Empire for wartime service" },
+  { date = 1945-10-01, emoji = "💻", text = "Joined the National Physical Laboratory and worked on the design of the Automatic Computing Engine (ACE)" },
+  { date = 1948-10-01, emoji = "🖥️", text = "Moved to the University of Manchester to work on early computers" },
+  { date = 1950-10-01, emoji = "🤖", text = "Published 'Computing Machinery and Intelligence,' proposing the imitation game now called the Turing test" },
+  { date = 1951-01-01, emoji = "🌿", text = "Began major work on mathematical biology and morphogenesis" },
+  { date = 1952-06-07, emoji = "⚖️", text = "Convicted for homosexual acts under British law" },
+  { date = 1952-01-01, emoji = "🧪", text = "Published 'The Chemical Basis of Morphogenesis'" },
+  { date = 1954-06-07, emoji = "⚰️", text = "Died in Wilmslow, near Manchester" },
+]

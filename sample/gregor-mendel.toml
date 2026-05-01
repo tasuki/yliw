@@ -3,25 +3,38 @@ name = "Gregor Mendel"
 
 places = [
   { from = 1822-07-20, label = "Heinzendorf (Hynčice)", color = "yellow" },
+  { from = 1840-09-01, label = "Olomouc", color = "blue" },
   { from = 1843-10-09, label = "Brno", color = "green" },
+  { from = 1849-01-01, label = "Znojmo", color = "cyan" },
   { from = 1851-10-01, label = "Vienna", color = "magenta" },
   { from = 1853-08-01, label = "Brno", color = "green" },
 ]
 
 occupations = [
+  { from = 1840-09-01, label = "Student", color = "yellow" },
   { from = 1843-10-09, label = "Monk", color = "cyan" },
   { from = 1847-08-06, label = "Priest & Teacher", color = "green" },
-  { from = 1868-03-30, label = "Abbot", color = "yellow" },
+  { from = 1851-10-01, label = "University Student", color = "magenta" },
+  { from = 1854-01-01, label = "Teacher & Researcher", color = "green" },
+  { from = 1868-03-30, label = "Abbot", color = "blue" },
 ]
 
 events = [
   { date = 1822-07-20, emoji = "👶", text = "Born in Heinzendorf (now Hynčice)" },
-  { date = 1843-10-09, emoji = "⛪", text = "Entered Augustinian monastery in Brno" },
-  { date = 1847-08-06, emoji = "✝️", text = "Ordained as priest" },
-  { date = 1851-10-01, emoji = "🎓", text = "Began studies in Vienna (math & science)" },
-  { date = 1856-05-01, emoji = "🌱", text = "Started pea plant experiments" },
-  { date = 1865-02-08, emoji = "📊", text = "Presented findings on inheritance" },
-  { date = 1866-01-01, emoji = "📄", text = "Published work on plant hybridization" },
-  { date = 1868-03-30, emoji = "🏛️", text = "Became abbot of the monastery" },
+  { date = 1840-09-01, emoji = "📚", text = "Began studies at the Philosophical Institute in Olomouc" },
+  { date = 1843-10-09, emoji = "⛪", text = "Entered the Augustinian monastery of St. Thomas in Brno" },
+  { date = 1847-08-06, emoji = "✝️", text = "Ordained as a Catholic priest" },
+  { date = 1849-01-01, emoji = "🏫", text = "Started teaching at the gymnasium in Znojmo" },
+  { date = 1850-08-01, emoji = "📝", text = "Sat for the teacher certification examination but did not pass" },
+  { date = 1851-10-01, emoji = "🎓", text = "Began studies in Vienna, focusing on mathematics and the natural sciences" },
+  { date = 1853-08-01, emoji = "↩️", text = "Returned to Brno after completing his studies in Vienna" },
+  { date = 1854-01-01, emoji = "🧑‍🏫", text = "Began teaching natural science and physics at the Brno Realschule" },
+  { date = 1856-05-01, emoji = "🌱", text = "Started his famous pea plant hybridization experiments" },
+  { date = 1863-01-01, emoji = "🌤️", text = "Became active in meteorological observation and local scientific societies" },
+  { date = 1865-02-08, emoji = "📊", text = "Presented his findings on inheritance to the Natural Science Society in Brno" },
+  { date = 1866-01-01, emoji = "📄", text = "Published 'Experiments on Plant Hybridization'" },
+  { date = 1868-03-30, emoji = "🏛️", text = "Elected abbot of St. Thomas's Abbey in Brno" },
+  { date = 1874-01-01, emoji = "⚖️", text = "Became involved in a long dispute with authorities over monastery taxation" },
+  { date = 1883-01-01, emoji = "🩺", text = "His health began to decline in his final years" },
   { date = 1884-01-06, emoji = "⚰️", text = "Died in Brno" },
 ]

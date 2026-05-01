@@ -1,0 +1,46 @@
+[person]
+name = "Nikola Tesla"
+
+places = [
+  { from = 1856-07-10, label = "Smiljan", color = "yellow" },
+  { from = 1875-01-01, label = "Graz", color = "blue" },
+  { from = 1881-01-01, label = "Budapest", color = "green" },
+  { from = 1882-01-01, label = "Paris", color = "magenta" },
+  { from = 1884-06-01, label = "New York City", color = "cyan" },
+  { from = 1888-01-01, label = "Pittsburgh", color = "red" },
+  { from = 1889-01-01, label = "New York City", color = "cyan" },
+  { from = 1899-05-01, label = "Colorado Springs", color = "white" },
+  { from = 1900-01-15, label = "New York City", color = "cyan" },
+]
+
+occupations = [
+  { from = 1875-01-01, label = "Engineering Student", color = "blue" },
+  { from = 1881-01-01, label = "Engineer", color = "green" },
+  { from = 1884-06-01, label = "Inventor & Electrical Engineer", color = "cyan" },
+  { from = 1891-01-01, label = "Inventor, Lecturer & Researcher", color = "magenta" },
+]
+
+events = [
+  { date = 1856-07-10, emoji = "👶", text = "Born in Smiljan, in the Austrian Empire (now Croatia)" },
+  { date = 1875-01-01, emoji = "🎓", text = "Began studying engineering at the Austrian Polytechnic in Graz" },
+  { date = 1881-01-01, emoji = "🏢", text = "Worked in Budapest at the Central Telegraph Office" },
+  { date = 1882-02-01, emoji = "💡", text = "Conceived the idea for a rotating magnetic field, foundational for AC motors" },
+  { date = 1882-01-01, emoji = "🇫🇷", text = "Moved to Paris to work for the Continental Edison Company" },
+  { date = 1884-06-01, emoji = "🗽", text = "Emigrated to the United States and arrived in New York City" },
+  { date = 1884-07-01, emoji = "⚙️", text = "Worked briefly for Thomas Edison's company" },
+  { date = 1885-01-01, emoji = "🔌", text = "Left Edison's company after disputes over pay and engineering direction" },
+  { date = 1887-01-01, emoji = "🛠️", text = "Founded the Tesla Electric Company and began developing AC induction motors" },
+  { date = 1888-05-16, emoji = "📄", text = "Presented his work on the polyphase AC system to the American Institute of Electrical Engineers" },
+  { date = 1888-07-01, emoji = "🤝", text = "Licensed key AC patents to George Westinghouse" },
+  { date = 1891-01-01, emoji = "🌀", text = "Invented the Tesla coil and became a U.S. citizen" },
+  { date = 1893-05-01, emoji = "🌍", text = "Demonstrated AC power technologies at the World's Columbian Exposition in Chicago" },
+  { date = 1895-01-01, emoji = "💥", text = "His New York laboratory was destroyed by fire, causing major losses of equipment and notes" },
+  { date = 1896-11-16, emoji = "⚡", text = "AC power from Niagara Falls began transmission to Buffalo using systems based on Tesla patents" },
+  { date = 1898-09-01, emoji = "📻", text = "Demonstrated a radio-controlled boat at Madison Square Garden" },
+  { date = 1899-05-01, emoji = "🏔️", text = "Moved to Colorado Springs for high-voltage and wireless power experiments" },
+  { date = 1901-01-01, emoji = "🗼", text = "Began the Wardenclyffe project on Long Island for wireless communication and power transmission" },
+  { date = 1905-01-01, emoji = "💸", text = "Financial difficulties severely slowed the Wardenclyffe project" },
+  { date = 1917-01-01, emoji = "🏅", text = "Received the Edison Medal from the American Institute of Electrical Engineers" },
+  { date = 1931-07-10, emoji = "📰", text = "Featured on the cover of Time magazine on his 75th birthday" },
+  { date = 1943-01-07, emoji = "⚰️", text = "Died in New York City" },
+]
