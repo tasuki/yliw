@@ -310,6 +310,7 @@ def render_html(person: dict) -> str:
       max-height: var(--cell-size);
       box-sizing: border-box;
       border: var(--border) solid var(--base1);
+      border-radius: 3px;
       text-align: center;
       vertical-align: middle;
       line-height: 1;
