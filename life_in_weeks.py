@@ -285,12 +285,13 @@ def render_html(person: dict) -> str:
     .wrapper {{
       width: 100%;
       overflow-x: auto;
-      display: flex;
-      justify-content: center;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
     }}
     table {{
       border-collapse: separate;
       border-spacing: var(--gap);
+      width: max-content;
       margin: 0 auto;
     }}
     .year {{
