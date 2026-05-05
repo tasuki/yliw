@@ -62,34 +62,28 @@ def fill_missing_to(items: list[dict]) -> list[dict]:
     return result
 
 
+def week_row_start(year: int) -> dt.date:
+    return monday_for_week(dt.date(year, 1, 1))
+
+
+
 def week_index_in_year(day: dt.date) -> int:
-    jan1 = dt.date(day.year, 1, 1)
-    days_since_jan1 = (day - jan1).days
     return min(
-        ((days_since_jan1 + 1) * WEEKS_PER_YEAR - 1) // day_count_in_year(day.year),
+        (monday_for_week(day) - week_row_start(day.year)).days // DAYS_PER_WEEK,
         WEEKS_PER_YEAR - 1,
     )
 
 
 
-def day_count_in_year(year: int) -> int:
-    jan1 = dt.date(year, 1, 1)
-    next_jan1 = dt.date(year + 1, 1, 1)
-    return (next_jan1 - jan1).days
-
-
-
 def week_start_date(year: int, week_index: int) -> dt.date:
-    jan1 = dt.date(year, 1, 1)
-    start_offset = week_index * day_count_in_year(year) // WEEKS_PER_YEAR
-    return jan1 + dt.timedelta(days=start_offset)
+    return week_row_start(year) + dt.timedelta(days=week_index * DAYS_PER_WEEK)
 
 
 
 def week_end_date(year: int, week_index: int) -> dt.date:
-    jan1 = dt.date(year, 1, 1)
-    end_offset = ((week_index + 1) * day_count_in_year(year) // WEEKS_PER_YEAR) - 1
-    return jan1 + dt.timedelta(days=end_offset)
+    if week_index == WEEKS_PER_YEAR - 1:
+        return dt.date(year, 12, 31)
+    return week_start_date(year, week_index) + dt.timedelta(days=DAYS_PER_WEEK - 1)
 
 
 
@@ -164,11 +158,13 @@ def render_html(person: dict) -> str:
     end_date = max(all_dates)
     event_map = events_by_week(events)
 
+    years = list(range(birth_date.year, end_date.year + 1))
+
     rows: list[str] = []
     birth_week = week_index_in_year(birth_date)
     detail_colspan = WEEKS_PER_YEAR + 1
 
-    for year in range(birth_date.year, end_date.year + 1):
+    for year in years:
         cells: list[str] = []
 
         for week_index in range(WEEKS_PER_YEAR):
