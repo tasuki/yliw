@@ -120,6 +120,30 @@ def events_by_week(events: list[dict]) -> dict[tuple[int, int], list[dict]]:
     return grouped
 
 
+def monday_for_week(day: dt.date) -> dt.date:
+    return day - dt.timedelta(days=day.weekday())
+
+
+def format_detail_date(day: dt.date) -> str:
+    return f'<span class="detail-date">{html.escape(day.isoformat())}</span>'
+
+
+def build_details_html(
+    start: dt.date,
+    week_events: list[dict],
+    place_occupation_parts: list[str],
+) -> str:
+    if week_events:
+        return "<br>".join(
+            f'{format_detail_date(event["date"])} '
+            f'{html.escape(event["emoji"])} {html.escape(event["text"])}'
+            for event in week_events
+        )
+    if place_occupation_parts:
+        return f'{format_detail_date(monday_for_week(start))} {html.escape("; ".join(place_occupation_parts))}'
+    return ""
+
+
 
 def style_attr(parts: list[str]) -> str:
     return " ".join(parts)
@@ -169,25 +193,19 @@ def render_html(person: dict) -> str:
             if occupation:
                 styles.append(f"background: var(--bg-{occupation['color']});")
 
-            title_lines = []
-            for event in week_events:
-                title_lines.append(f"{event['date'].isoformat()} {event['emoji']} {event['text']}")
-
             place_occupation_parts = []
             if place:
                 place_occupation_parts.append(place['label'])
             if occupation:
                 place_occupation_parts.append(occupation['label'])
 
-            details_text = " ".join(title_lines)
-            if not week_events and place_occupation_parts:
-                details_text = "; ".join(place_occupation_parts)
+            details_html = build_details_html(start, week_events, place_occupation_parts)
 
             details_attr = ""
             extra_classes = ""
-            if details_text:
-                escaped_details = html.escape(details_text, quote=True)
-                details_attr = f' data-details="{escaped_details}"'
+            if details_html:
+                escaped_details = html.escape(details_html, quote=True)
+                details_attr = f' data-details-html="{escaped_details}"'
                 extra_classes = " has-details"
 
             date_attrs = f' data-start="{start.isoformat()}" data-end="{end.isoformat()}"'
@@ -340,7 +358,9 @@ def render_html(person: dict) -> str:
       border-radius: 5px;
       background: var(--base0);
       text-align: left;
-      white-space: pre-line;
+    }}
+    .detail-date {{
+      color: var(--base2);
     }}
     .pad {{
       border: none;
@@ -375,8 +395,8 @@ def render_html(person: dict) -> str:
       }}
 
       function showDetails(cell) {{
-        const text = cell.dataset.details;
-        if (!text) return;
+        const detailsHtml = cell.dataset.detailsHtml;
+        if (!detailsHtml) return;
 
         if (openCell && openCell !== cell) {{
           openCell.removeAttribute('aria-pressed');
@@ -398,7 +418,7 @@ def render_html(person: dict) -> str:
           return;
         }}
 
-        detailsBox.textContent = text;
+        detailsBox.innerHTML = detailsHtml;
         detailsRow.hidden = false;
         cell.setAttribute('aria-pressed', 'true');
         openRow = detailsRow;
