@@ -14,8 +14,7 @@ import sys
 import tomllib
 from typing import Iterable
 
-WEEKS_PER_YEAR = 52
-DAYS_PER_WEEK = 7
+MAX_WEEKS_PER_YEAR = 53
 
 
 def parse_args() -> argparse.Namespace:
@@ -62,28 +61,28 @@ def fill_missing_to(items: list[dict]) -> list[dict]:
     return result
 
 
-def week_row_start(year: int) -> dt.date:
-    return monday_for_week(dt.date(year, 1, 1))
+def iso_year(day: dt.date) -> int:
+    return day.isocalendar().year
+
+
+
+def weeks_in_year(year: int) -> int:
+    return dt.date(year, 12, 28).isocalendar().week
 
 
 
 def week_index_in_year(day: dt.date) -> int:
-    return min(
-        (monday_for_week(day) - week_row_start(day.year)).days // DAYS_PER_WEEK,
-        WEEKS_PER_YEAR - 1,
-    )
+    return day.isocalendar().week - 1
 
 
 
 def week_start_date(year: int, week_index: int) -> dt.date:
-    return week_row_start(year) + dt.timedelta(days=week_index * DAYS_PER_WEEK)
+    return dt.date.fromisocalendar(year, week_index + 1, 1)
 
 
 
 def week_end_date(year: int, week_index: int) -> dt.date:
-    if week_index == WEEKS_PER_YEAR - 1:
-        return dt.date(year, 12, 31)
-    return week_start_date(year, week_index) + dt.timedelta(days=DAYS_PER_WEEK - 1)
+    return dt.date.fromisocalendar(year, week_index + 1, 7)
 
 
 
@@ -109,7 +108,7 @@ def find_item_for_week(items: Iterable[dict], start: dt.date, end: dt.date) -> d
 def events_by_week(events: list[dict]) -> dict[tuple[int, int], list[dict]]:
     grouped: dict[tuple[int, int], list[dict]] = {}
     for event in events:
-        key = (event["date"].year, week_index_in_year(event["date"]))
+        key = (iso_year(event["date"]), week_index_in_year(event["date"]))
         grouped.setdefault(key, []).append(event)
     return grouped
 
@@ -158,17 +157,16 @@ def render_html(person: dict) -> str:
     end_date = max(all_dates)
     event_map = events_by_week(events)
 
-    years = list(range(birth_date.year, end_date.year + 1))
+    years = list(range(iso_year(birth_date), iso_year(end_date) + 1))
 
     rows: list[str] = []
-    birth_week = week_index_in_year(birth_date)
-    detail_colspan = WEEKS_PER_YEAR + 1
+    detail_colspan = MAX_WEEKS_PER_YEAR + 1
 
     for year in years:
         cells: list[str] = []
 
-        for week_index in range(WEEKS_PER_YEAR):
-            if year == birth_date.year and week_index < birth_week:
+        for week_index in range(MAX_WEEKS_PER_YEAR):
+            if week_index >= weeks_in_year(year):
                 cells.append('<td class="cell pad"></td>')
                 continue
 
