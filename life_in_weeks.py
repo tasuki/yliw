@@ -340,7 +340,8 @@ def render_html(person: dict) -> str:
       outline: 2px solid var(--base7);
       outline-offset: 1px;
     }}
-    .cell.current-week {{
+    .cell.current-week,
+    .cell.expanded {{
       border-color: var(--base) !important;
     }}
     .details-row td {{
@@ -396,6 +397,7 @@ def render_html(person: dict) -> str:
 
         if (openCell && openCell !== cell) {{
           openCell.removeAttribute('aria-pressed');
+          openCell.classList.remove('expanded');
         }}
 
         if (openRow && openRow !== cell.parentElement.nextElementSibling) {{
@@ -409,6 +411,7 @@ def render_html(person: dict) -> str:
         if (isSameCell) {{
           detailsRow.hidden = true;
           cell.removeAttribute('aria-pressed');
+          cell.classList.remove('expanded');
           openRow = null;
           openCell = null;
           return;
@@ -417,6 +420,7 @@ def render_html(person: dict) -> str:
         detailsBox.innerHTML = detailsHtml;
         detailsRow.hidden = false;
         cell.setAttribute('aria-pressed', 'true');
+        cell.classList.add('expanded');
         openRow = detailsRow;
         openCell = cell;
       }}
