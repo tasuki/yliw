@@ -2,8 +2,8 @@
 """Generate .html files for every .toml file in one or more directories.
 
 Usage:
-    python3 batch_life_in_weeks.py sample
-    python3 batch_life_in_weeks.py sample other-directory
+    python3 liw_batch.py sample
+    python3 liw_batch.py sample other-directory
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from life_in_weeks import load_person, render_html
+from liw import load_person, render_html
 
 
 def parse_args() -> argparse.Namespace:

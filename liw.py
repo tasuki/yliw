@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate a simple 'your life in weeks' HTML page from a TOML file.
+"""Generate a simple 'Your Life In Weeks' HTML page from a TOML file.
 
 Usage:
-    python3 life_in_weeks.py sample/gregor-mendel.toml > gregor-mendel.html
+    python3 liw.py sample/gregor-mendel.toml > gregor-mendel.html
 """
 
 from __future__ import annotations
