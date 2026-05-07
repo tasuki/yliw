@@ -216,7 +216,7 @@ def render_html(person: dict) -> str:
             + "".join(cells)
             + "</tr>\n"
             + (
-                f'<tr class="details-row" hidden><td colspan="{detail_colspan}">' 
+                f'<tr class="details-row" hidden><td colspan="{detail_colspan}">'
                 '<div class="inline-details"></div>'
                 '</td></tr>\n'
             )
@@ -230,9 +230,10 @@ def render_html(person: dict) -> str:
   <title>{html.escape(name)}</title>
   <style>
     :root {{
-      --cell-size: 22px;
       --gap: 1px;
       --border: 1px;
+      --cell-size: 22px;
+      --table-font-size: 14px;
       --base0: #FFF8E6;
       --base1: #E8E5D1;
       --base2: #D2D3BE;
@@ -290,10 +291,25 @@ def render_html(person: dict) -> str:
     body {{
       font-family: system-ui, sans-serif;
       font-size: 16px;
-      margin: 24px;
+      margin: 10px;
       background-color: var(--base0);
       color: var(--base5);
       text-align: center;
+    }}
+    @media (max-width: 720px) {{
+      body {{
+        margin: 2px;
+      }}
+      h1 {{
+        font-size: 20px;
+      }}
+      .year {{
+        padding-right: 4px;
+      }}
+      .inline-details {{
+        font-size: 12px;
+        max-width: none;
+      }}
     }}
     h1 {{
       font-size: 24px;
@@ -311,9 +327,14 @@ def render_html(person: dict) -> str:
       margin: 0 auto;
     }}
     .year {{
+      position: sticky;
+      left: 0;
+      z-index: 2;
       text-align: right;
       padding-right: 10px;
       white-space: nowrap;
+      font-size: var(--table-font-size);
+      background: var(--base0);
     }}
     .cell {{
       width: var(--cell-size);
@@ -322,12 +343,14 @@ def render_html(person: dict) -> str:
       height: var(--cell-size);
       min-height: var(--cell-size);
       max-height: var(--cell-size);
+      aspect-ratio: 1 / 1;
       box-sizing: border-box;
       border: var(--border) solid var(--base1);
       border-radius: 3px;
       text-align: center;
       vertical-align: middle;
-      line-height: 1;
+      line-height: calc(var(--cell-size) - (2 * var(--border)));
+      font-size: var(--table-font-size);
       padding: 0;
       overflow: hidden;
     }}
@@ -348,13 +371,17 @@ def render_html(person: dict) -> str:
       padding: 6px 0 10px;
     }}
     .inline-details {{
-      max-width: 500px;
-      margin: 0 auto;
+      position: sticky;
+      left: 0;
+      box-sizing: border-box;
+      width: 50%;
       padding: 8px 14px;
+      margin: 0 auto;
       border: 1px solid var(--base2);
       border-radius: 5px;
       background: var(--base0);
       text-align: left;
+      z-index: 1;
     }}
     .detail-date {{
       color: var(--base2);
@@ -380,8 +407,30 @@ def render_html(person: dict) -> str:
   </div>
   <script>
     (() => {{
+      const root = document.documentElement;
+      const wrapper = document.querySelector('.wrapper');
+      const table = document.querySelector('table');
+      const DEFAULT_CELL_SIZE = 22;
+      const MIN_CELL_SIZE = 8;
+      const WEEK_COUNT = 52;
       let openRow = null;
       let openCell = null;
+
+      function fitTableToWidth() {{
+        root.style.setProperty('--cell-size', `${{DEFAULT_CELL_SIZE}}px`);
+        root.style.setProperty('--table-font-size', `${{Math.max(4, Math.floor(DEFAULT_CELL_SIZE * 0.65))}}px`);
+
+        const fixedWidth = table.scrollWidth - (WEEK_COUNT * DEFAULT_CELL_SIZE);
+        const availableWidth = wrapper.clientWidth - fixedWidth;
+        const fittedCellSize = Math.min(
+          DEFAULT_CELL_SIZE,
+          Math.max(MIN_CELL_SIZE, Math.floor(availableWidth / WEEK_COUNT))
+        );
+        const fittedFontSize = Math.max(4, Math.floor(fittedCellSize * 0.65));
+
+        root.style.setProperty('--cell-size', `${{fittedCellSize}}px`);
+        root.style.setProperty('--table-font-size', `${{fittedFontSize}}px`);
+      }}
 
       function markCurrentWeek() {{
         const today = new Date().toISOString().slice(0, 10);
@@ -425,7 +474,10 @@ def render_html(person: dict) -> str:
         openCell = cell;
       }}
 
+      fitTableToWidth();
       markCurrentWeek();
+
+      window.addEventListener('resize', fitTableToWidth);
 
       document.addEventListener('click', (event) => {{
         const cell = event.target.closest('.cell.has-details');
