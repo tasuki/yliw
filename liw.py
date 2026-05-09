@@ -17,6 +17,13 @@ from typing import Iterable
 WEEKS_PER_YEAR = 52
 DAYS_PER_WEEK = 7
 
+# Approximate northern-hemisphere season boundaries by week-of-year.
+# Tweak these to taste.
+SPRING_START_WEEK = 10
+SUMMER_START_WEEK = 23
+AUTUMN_START_WEEK = 36
+WINTER_START_WEEK = 49
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -144,6 +151,23 @@ def style_attr(parts: list[str]) -> str:
 
 
 
+def season_segments() -> list[tuple[str, int, int]]:
+    cutoffs = [
+        ("winter", 0),
+        ("spring", SPRING_START_WEEK),
+        ("summer", SUMMER_START_WEEK),
+        ("autumn", AUTUMN_START_WEEK),
+        ("winter", WINTER_START_WEEK),
+        ("", WEEKS_PER_YEAR),
+    ]
+    return [
+        (name, start, next_start - start)
+        for (name, start), (_, next_start) in zip(cutoffs, cutoffs[1:])
+        if next_start > start
+    ]
+
+
+
 def render_html(person: dict) -> str:
     name = person.get("name", "Your Life in Weeks")
     places = fill_missing_to(person.get("places", []))
@@ -163,6 +187,15 @@ def render_html(person: dict) -> str:
     rows: list[str] = []
     birth_week = week_index_in_year(birth_date)
     detail_colspan = WEEKS_PER_YEAR + 1
+    season_header = (
+        '<thead><tr>'
+        '<th class="season-corner"></th>'
+        + "".join(
+            f'<th class="season season-{name}" colspan="{span}"></th>'
+            for name, _, span in season_segments()
+        )
+        + '</tr></thead>'
+    )
 
     for year in years:
         cells: list[str] = []
@@ -259,6 +292,10 @@ def render_html(person: dict) -> str:
       --border-blue: #1E86CD;
       --border-purple: #6A69DB;
       --border-magenta: #C13B9F;
+      --season-spring: #9AD36A;
+      --season-summer: #F4D35E;
+      --season-autumn: #D96C3D;
+      --season-winter: #9FD3F7;
     }}
     @media (prefers-color-scheme: dark) {{
       :root {{
@@ -286,6 +323,10 @@ def render_html(person: dict) -> str:
         --border-blue: #249FF3;
         --border-purple: #8082F7;
         --border-magenta: #DD56B8;
+        --season-spring: #406E2A;
+        --season-summer: #8A6E16;
+        --season-autumn: #8E4424;
+        --season-winter: #2B5E84;
       }}
     }}
     body {{
@@ -315,6 +356,7 @@ def render_html(person: dict) -> str:
       font-size: 24px;
     }}
     .wrapper {{
+      position: relative;
       width: 100%;
       overflow-x: auto;
       overflow-y: visible;
@@ -336,6 +378,22 @@ def render_html(person: dict) -> str:
       font-size: var(--table-font-size);
       background: var(--base0);
     }}
+    .season-corner,
+    .season {{
+      position: sticky;
+      top: 0;
+      height: calc(var(--cell-size) * 0.33);
+      border-radius: 3px;
+      background: var(--base1);
+    }}
+    .season-corner {{
+      left: 0;
+      background: var(--base0);
+    }}
+    .season-spring {{ background: var(--season-spring); }}
+    .season-summer {{ background: var(--season-summer); }}
+    .season-autumn {{ background: var(--season-autumn); }}
+    .season-winter {{ background: var(--season-winter); }}
     .cell {{
       width: var(--cell-size);
       min-width: var(--cell-size);
@@ -400,6 +458,7 @@ def render_html(person: dict) -> str:
   <h1>{html.escape(name)}</h1>
   <div class="wrapper">
     <table>
+      {season_header}
       <tbody>
         {''.join(rows)}
       </tbody>
